@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agriculture Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        header {
+            background-color: #2C6B3F;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+        .dashboard-container {
+            display: flex;
+            flex: 1;
+            justify-content: space-around;
+            padding: 20px;
+            overflow: auto;
+        }
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            padding: 20px;
+            text-align: center;
+        }
+        .card h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .card p {
+            font-size: 18px;
+            color: #555;
+        }
+        .card .value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #2C6B3F;
+        }
+        footer {
+            background-color: #2C6B3F;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        .chart-container {
+            margin-top: 30px;
+            width: 80%;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .chart {
+            width: 100%;
+            height: 400px;
+            background-color: #fff;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Agriculture Monitoring Dashboard</h1>
+    </header>
+
+    <div class="dashboard-container">
+        <div class="card">
+            <h2>Weather</h2>
+            <p>Current Temperature</p>
+            <p class="value" id="weather-temp">22°C</p>
+        </div>
+        <div class="card">
+            <h2>Crop Health</h2>
+            <p>Growth Status</p>
+            <p class="value" id="crop-health">75%</p>
+        </div>
+        <div class="card">
+            <h2>Soil Moisture</h2>
+            <p>Current Moisture Level</p>
+            <p class="value" id="soil-moisture">60%</p>
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <div class="chart" id="chart"></div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Agriculture Monitoring. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Dummy data for temperature, crop health, and soil moisture
+        const weatherData = 22;  // Celsius
+        const cropHealth = 75;  // Percentage
+        const soilMoisture = 60;  // Percentage
+
+        // Update dashboard values
+        document.getElementById('weather-temp').textContent = `${weatherData}°C`;
+        document.getElementById('crop-health').textContent = `${cropHealth}%`;
+        document.getElementById('soil-moisture').textContent = `${soilMoisture}%`;
+
+        // Fake chart data for crop growth
+        const cropGrowthData = [30, 45, 55, 65, 70, 75, 80, 85, 90, 95];
+        
+        // Create a chart with the crop growth data (just a simple bar chart)
+        function createChart(data) {
+            const chart = document.getElementById('chart');
+            let bars = '';
+            
+            // Calculate the width based on max value
+            const maxValue = Math.max(...data);
+            const barWidth = 100 / data.length;
+            
+            data.forEach((value, index) => {
+                const height = (value / maxValue) * 100;
+                bars += `
+                    <div style="height: ${height}%; width: ${barWidth}%; background-color: #4CAF50; margin: 0 2px; display: inline-block;"></div>
+                `;
+            });
+            chart.innerHTML = `<div style="display: flex; justify-content: space-between; align-items: flex-end; height: 100%;">${bars}</div>`;
+        }
+
+        createChart(cropGrowthData);
+    </script>
+
+</body>
+</html>
